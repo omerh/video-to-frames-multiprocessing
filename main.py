@@ -18,9 +18,9 @@ logger = logging.getLogger(__name__)
 def capture_frames_and_save(input_video, output_folder, start_frame, step, total_frames):
     logger.debug(f"reading video from {start_frame} to {total_frames} with step {step}")
     cap = cv2.VideoCapture(input_video)
-    logger.debug("finished reading view")
+    logger.debug("finished reading video")
     cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
-    logger.debug(f"Starting from frame {start_frame}")
+    logger.debug(f"Starting from frame {start_frame} to {total_frames}")
 
     for frame_number in range(start_frame, total_frames, step):
         logger.debug(f"Capturing frame {frame_number}")
@@ -35,9 +35,9 @@ def capture_frames_and_save(input_video, output_folder, start_frame, step, total
             cv2.imwrite(frame_filename, frame)
 
     cap.release()
-
-
-if __name__ == "__main__":
+    
+    
+def main():
     start = time.time()
     logger.info("start")
     
@@ -49,8 +49,7 @@ if __name__ == "__main__":
     cap = cv2.VideoCapture(input_video)
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    # Create the output folder if it doesn't exist
-    import os
+    # Create the output folder if it doesn't exist    
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
@@ -73,3 +72,6 @@ if __name__ == "__main__":
     cap.release()
     end = time.time()
     print(f"Time taken: {end - start} seconds")
+
+if __name__ == "__main__":
+    main()
